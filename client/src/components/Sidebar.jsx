@@ -28,6 +28,12 @@ function Sidebar() {
           Menu
         </Link>
       </p>
+
+      <p>
+        <Link to="/expenses">
+          Expenses
+        </Link>
+      </p>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Ingredients from "./pages/Ingredients";
 import Menu from "./pages/Menu";
-
+import Expenses from "./pages/Expenses";
 
 function App() {
   return (
@@ -30,6 +30,11 @@ function App() {
       />
 
       <Route path="/menu" element={<Menu />} />
+
+      <Route
+        path="/expenses"
+        element={<Expenses />}
+      />
     </Routes>
   </BrowserRouter>
   );

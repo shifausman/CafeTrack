@@ -11,6 +11,8 @@ import Menu from "./pages/Menu";
 import Expenses from "./pages/Expenses";
 import Sales from "./pages/Sales";
 import Recipes from "./pages/Recipes";
+import Analytics from "./pages/Analytics";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -23,28 +25,67 @@ function App() {
 
       <Route
         path="/dashboard"
-        element={<Dashboard />}
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path="/ingredients"
-        element={<Ingredients />}
+        element={
+          <ProtectedRoute>
+            <Ingredients />
+          </ProtectedRoute>
+        }
       />
 
-      <Route path="/menu" element={<Menu />} />
+      <Route
+        path="/menu"
+        element={
+          <ProtectedRoute>
+            <Menu />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/expenses"
-        element={<Expenses />}
+        element={
+          <ProtectedRoute>
+            <Expenses />
+          </ProtectedRoute>
+        }
       />
 
-      <Route path="/sales" element={<Sales />} />
+      <Route
+        path="/sales"
+        element={
+          <ProtectedRoute>
+            <Sales />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/recipes"
-        element={<Recipes />}
+        element={
+          <ProtectedRoute>
+            <Recipes />
+          </ProtectedRoute>
+        }
       />
-      
+
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute>
+            <Analytics />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
   </BrowserRouter>
   );

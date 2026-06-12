@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div
       style={{
@@ -46,6 +54,16 @@ function Sidebar() {
           Recipes
         </Link>
       </p>
+
+      <p>
+        <Link to="/analytics">
+          Analytics
+        </Link>
+      </p>
+
+      <button onClick={handleLogout}>
+        Logout
+      </button>
 
     </div>
   );

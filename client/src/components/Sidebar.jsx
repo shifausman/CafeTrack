@@ -34,6 +34,19 @@ function Sidebar() {
           Expenses
         </Link>
       </p>
+
+      <p>
+        <Link to="/sales">
+          Sales
+        </Link>
+      </p>
+
+      <p>
+        <Link to="/recipes">
+          Recipes
+        </Link>
+      </p>
+
     </div>
   );
 }

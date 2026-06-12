@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import Ingredients from "./pages/Ingredients";
 import Menu from "./pages/Menu";
 import Expenses from "./pages/Expenses";
+import Sales from "./pages/Sales";
+import Recipes from "./pages/Recipes";
 
 function App() {
   return (
@@ -35,6 +37,14 @@ function App() {
         path="/expenses"
         element={<Expenses />}
       />
+
+      <Route path="/sales" element={<Sales />} />
+
+      <Route
+        path="/recipes"
+        element={<Recipes />}
+      />
+      
     </Routes>
   </BrowserRouter>
   );

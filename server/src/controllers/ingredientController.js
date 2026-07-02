@@ -20,8 +20,14 @@ const createIngredient = async (req, res) => {
 
 const getIngredients = async (req, res) => {
   try {
+    const search = req.query.search || "";
+
     const ingredients = await Ingredient.find({
       userId: req.user._id,
+      name: {
+        $regex: search,
+        $options: "i",
+      },
     });
 
     res.json(ingredients);

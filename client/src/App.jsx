@@ -4,6 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Ingredients from "./pages/Ingredients";
@@ -87,6 +89,13 @@ function App() {
       />
 
     </Routes>
+
+    <ToastContainer
+      position="top-right"
+      autoClose={2500}
+      theme="colored"
+    />
+
   </BrowserRouter>
   );
 }

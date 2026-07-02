@@ -208,11 +208,15 @@ function Expenses() {
                 </button>
 
                 <button
-                  onClick={() =>
-                    deleteExpense(
-                      expense._id
-                    )
-                  }
+                  onClick={() => {
+                    const confirmDelete = window.confirm(
+                      "Are you sure you want to delete this expense?"
+                    );
+
+                    if (confirmDelete) {
+                      deleteExpense(item._id);
+                    }
+                  }}
                 >
                   Delete
                 </button>

@@ -10,10 +10,11 @@ function Menu() {
   const [price, setPrice] = useState("");
 
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchMenuItems();
-  }, []);
+  }, [search]);
 
   const fetchMenuItems = async () => {
     try {
@@ -21,7 +22,7 @@ function Menu() {
         localStorage.getItem("token");
 
       const response = await api.get(
-        "/menu",
+        `/menu?search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -124,6 +125,13 @@ function Menu() {
     <MainLayout>
       <h1>Menu Management</h1>
 
+      <input
+        type="text"
+        placeholder="🔍 Search menu item..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       <form
         onSubmit={
           editId
@@ -201,9 +209,15 @@ function Menu() {
                 </button>
 
                 <button
-                  onClick={() =>
-                    deleteMenuItem(item._id)
-                  }
+                  onClick={() => {
+                    const confirmDelete = window.confirm(
+                      "Are you sure you want to delete this menu item?"
+                    );
+
+                    if (confirmDelete) {
+                      deleteMenuItem(item._id);
+                    }
+                  }}
                 >
                   Delete
                 </button>

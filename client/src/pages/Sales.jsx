@@ -12,10 +12,12 @@ function Sales() {
   const [quantitySold, setQuantitySold] =
     useState("");
 
+  const [status, setStatus] = useState("");
+
   useEffect(() => {
     fetchSales();
     fetchMenuItems();
-  }, []);
+  }, [status]);
 
   const fetchSales = async () => {
     try {
@@ -23,7 +25,7 @@ function Sales() {
         localStorage.getItem("token");
 
       const response = await api.get(
-        "/sales",
+         `/sales?status=${status}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,6 +90,46 @@ function Sales() {
     }
   };
 
+  const cancelSale = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await api.put(
+      `/sales/${id}/cancel`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    fetchSales();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const revertSale = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await api.put(
+      `/sales/${id}/revert`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    fetchSales();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     <MainLayout>
       <h1>Sales</h1>
@@ -128,6 +170,22 @@ function Sales() {
       </form>
 
       <br />
+      
+      <div style={{ marginBottom: "20px" }}>
+        <label>Status: </label>
+
+        <select
+          value={status}
+          onChange={(e) =>
+            setStatus(e.target.value)
+          }
+        >
+          <option value="">All</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Reverted">Reverted</option>
+        </select>
+      </div>
 
       <table border="1" cellPadding="10">
         <thead>
@@ -135,6 +193,8 @@ function Sales() {
             <th>Menu Item</th>
             <th>Quantity</th>
             <th>Total Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
             <th>Date</th>
           </tr>
         </thead>
@@ -152,6 +212,44 @@ function Sales() {
 
               <td>
                 ₹{sale.totalAmount}
+              </td>
+
+              <td>{sale.status}</td>
+
+              <td>
+                {sale.status === "Completed" && (
+                  <>
+                    <button
+                      onClick={() => {
+                        const confirmCancel =
+                          window.confirm(
+                            "Cancel this sale? Ingredients will NOT be restored."
+                          );
+
+                        if (confirmCancel) {
+                          cancelSale(sale._id);
+                        }
+                      }}
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        const confirmRevert =
+                          window.confirm(
+                            "Revert this sale? All ingredients will be restored."
+                          );
+
+                        if (confirmRevert) {
+                          revertSale(sale._id);
+                        }
+                      }}
+                    >
+                      Revert
+                    </button>
+                  </>
+                )}
               </td>
 
               <td>

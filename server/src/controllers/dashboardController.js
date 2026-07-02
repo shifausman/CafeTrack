@@ -8,6 +8,7 @@ const getDashboardData = async (req, res) => {
   try {
     const sales = await Sale.find({
       userId: req.user._id,
+      status: "Completed",
     });
 
     const expenses = await Expense.find({
@@ -75,6 +76,7 @@ const getAnalytics = async (req, res) => {
 
     const sales = await Sale.find({
       userId: req.user._id,
+      status: "Completed",
       createdAt: { $gte: startOfMonth },
     });
 
@@ -125,6 +127,11 @@ const getTopSellingItems = async (req, res) => {
       {
         $limit: 5,
       },
+      {
+        $match: {
+          status: "Completed",
+        },
+      }
     ]);
 
     const populatedSales =
@@ -148,6 +155,7 @@ const getIngredientUsage = async (
   try {
     const sales = await Sale.find({
       userId: req.user._id,
+      status: "Completed",
     });
 
     const usage = {};

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import MainLayout from "../layouts/MainLayout";
+import { toast } from "react-toastify";
 
 function Ingredients() {
   const [ingredients, setIngredients] =
@@ -13,10 +14,11 @@ function Ingredients() {
     useState("");
 
   const [editId, setEditId] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchIngredients();
-  }, []);
+  }, [search]);
 
   const fetchIngredients = async () => {
     try {
@@ -24,7 +26,7 @@ function Ingredients() {
         localStorage.getItem("token");
 
       const response = await api.get(
-        "/ingredients",
+        `/ingredients?search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,10 +66,18 @@ function Ingredients() {
       setQuantity("");
       setUnit("");
       setMinimumStock("");
+      console.log("API Success");
+      toast.success("Ingredient added successfully!");
 
       fetchIngredients();
     } catch (error) {
       console.log(error);
+      console.log(error.response);
+
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to add ingredient"
+      );
     }
   };
 
@@ -85,10 +95,13 @@ function Ingredients() {
           },
         }
       );
-
+      toast.success("Ingredient deleted successfully!");
       fetchIngredients();
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to delete ingredient"
+      );
     }
   };
 
@@ -121,18 +134,30 @@ function Ingredients() {
       setQuantity("");
       setUnit("");
       setMinimumStock("");
-
+      toast.success("Ingredient updated successfully!");
       fetchIngredients();
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to update ingredient"
+      );
     }
   };
 
   return (
     <MainLayout>
-        <h1>Ingredients</h1>
+      <h1>Ingredients</h1>
 
       <h2>Add Ingredient</h2>
+
+      <input
+        type="text"
+        placeholder="🔍 Search ingredient..."
+        value={search}
+        onChange={(e) =>
+          setSearch(e.target.value)
+        }
+      />
 
       <form
         onSubmit={
@@ -218,9 +243,15 @@ function Ingredients() {
                   </button>
 
                   <button
-                    onClick={() =>
-                      deleteIngredient(item._id)
-                    }
+                    onClick={() => {
+                      const confirmDelete = window.confirm(
+                        "Are you sure you want to delete this ingredient?"
+                      );
+
+                      if (confirmDelete) {
+                        deleteIngredient(item._id);
+                      }
+                    }}
                   >
                     Delete
                   </button>

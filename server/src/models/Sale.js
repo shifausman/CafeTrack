@@ -23,10 +23,36 @@ const saleSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+
+    // NEW
+    status: {
+      type: String,
+      enum: [
+        "Completed",
+        "Cancelled",
+        "Reverted",
+      ],
+      default: "Completed",
+    },
+
+    // NEW
+    ingredientReverted: {
+      type: Boolean,
+      default: false,
+    },
+
+    // Optional (good for future)
+    cancelReason: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Sale", saleSchema);
+module.exports = mongoose.model(
+  "Sale",
+  saleSchema
+);

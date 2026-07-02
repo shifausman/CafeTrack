@@ -19,8 +19,14 @@ const createMenuItem = async (req, res) => {
 
 const getMenuItems = async (req, res) => {
   try {
+    const search = req.query.search || "";
+
     const menuItems = await MenuItem.find({
       userId: req.user._id,
+      name: {
+        $regex: search,
+        $options: "i",
+      },
     });
 
     res.json(menuItems);

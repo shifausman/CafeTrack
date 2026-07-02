@@ -232,11 +232,15 @@ function Recipes() {
 
               <td>
                 <button
-                  onClick={() =>
-                    deleteRecipe(
-                      recipe._id
-                    )
-                  }
+                  onClick={() => {
+                    const confirmDelete = window.confirm(
+                      "Are you sure you want to delete this recipe?"
+                    );
+
+                    if (confirmDelete) {
+                      deleteRecipe(item._id);
+                    }
+                  }}
                 >
                   Delete
                 </button>

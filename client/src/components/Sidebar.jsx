@@ -1,5 +1,26 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  BiSolidDashboard,
+  BiTrendingUp,
+  BiNotepad,
+  BiBox,
+  BiBookOpen,
+  BiDollarCircle,
+  BiBarChartAlt2,
+  BiLogOut
+} from "react-icons/bi";
+import { SiCoffeescript } from "react-icons/si";
+import "./Sidebar.css";
+
+const navItems = [
+  { path: "/dashboard", name: "Dashboard", icon: <BiSolidDashboard /> },
+  { path: "/sales", name: "POS / Sales", icon: <BiTrendingUp /> },
+  { path: "/menu", name: "Menu", icon: <BiNotepad /> },
+  { path: "/ingredients", name: "Ingredients", icon: <BiBox /> },
+  { path: "/recipes", name: "Recipes", icon: <BiBookOpen /> },
+  { path: "/expenses", name: "Expenses", icon: <BiDollarCircle /> },
+  { path: "/analytics", name: "Analytics", icon: <BiBarChartAlt2 /> },
+];
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -10,59 +31,32 @@ function Sidebar() {
   };
 
   return (
-    <div
-      style={{
-        width: "200px",
-        padding: "20px",
-        borderRight: "1px solid #ccc",
-      }}
-    >
-      <h2>CafeTrack</h2>
+    <div className="sidebar">
+      <div className="brand">
+        <div className="brand-icon">
+          <SiCoffeescript />
+        </div>
+        <div className="brand-text">
+          <h2>GREEN<br />GROUNDS<br />COFFEE</h2>
+        </div>
+      </div>
 
-      <p>
-        <Link to="/dashboard">
-          Dashboard
-        </Link>
-      </p>
+      <nav className="nav-links">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+          >
+            <span className="icon">{item.icon}</span>
+            <span>{item.name}</span>
+          </NavLink>
+        ))}
+      </nav>
 
-      <p>
-        <Link to="/ingredients">
-          Ingredients
-        </Link>
-      </p>
-
-      <p>
-        <Link to="/menu">
-          Menu
-        </Link>
-      </p>
-
-      <p>
-        <Link to="/expenses">
-          Expenses
-        </Link>
-      </p>
-
-      <p>
-        <Link to="/sales">
-          Sales
-        </Link>
-      </p>
-
-      <p>
-        <Link to="/recipes">
-          Recipes
-        </Link>
-      </p>
-
-      <p>
-        <Link to="/analytics">
-          Analytics
-        </Link>
-      </p>
-
-      <button onClick={handleLogout}>
-        Logout
+      <button className="nav-item" onClick={handleLogout} style={{ background: 'transparent', border: 'none', outline: 'none', cursor: 'pointer', width: '100%', marginTop: 'auto', textAlign: 'left', fontFamily: 'inherit', fontSize: 'inherit' }}>
+        <span className="icon"><BiLogOut /></span>
+        <span>Logout</span>
       </button>
 
     </div>

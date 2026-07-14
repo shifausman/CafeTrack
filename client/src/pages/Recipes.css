@@ -1,0 +1,45 @@
+.recipe-components {
+    margin-top: 12px;
+    background-color: #f8fafc;
+    border-radius: var(--radius-md);
+    padding: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.ingredient-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.ingredient-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.ing-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ing-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.ing-qty {
+    font-size: 12px;
+    color: var(--text-muted);
+}

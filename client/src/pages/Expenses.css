@@ -1,0 +1,43 @@
+.expenses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.payment-tag {
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    background-color: #f1f5f9;
+}
+
+.payment-upi {
+    color: #8b5cf6;
+    background-color: #ede9fe;
+}
+
+.payment-cash {
+    color: #f59e0b;
+    background-color: #fef3c7;
+}
+
+.payment-bank {
+    color: #10b981;
+    background-color: #d1fae5;
+}
+
+.payment-card {
+    color: #3b82f6;
+    background-color: #dbeafe;
+}
+
+.expense-name {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.expense-row:hover {
+    background-color: #f8fafc;
+}
